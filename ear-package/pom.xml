@@ -350,10 +350,16 @@
               <bundleDir>/</bundleDir>
             </jarModule>
             <webModule>
-              <groupId>org.jboss.pnc</groupId>
-              <artifactId>rest</artifactId>
-              <bundleDir>/</bundleDir>
-              <contextRoot>/pnc-rest</contextRoot>
+                <groupId>org.jboss.pnc</groupId>
+                <artifactId>rest</artifactId>
+                <bundleDir>/</bundleDir>
+                <contextRoot>/pnc-rest</contextRoot>
+            </webModule>
+            <webModule>
+                <groupId>org.jboss.pnc</groupId>
+                <artifactId>rest-new</artifactId>
+                <bundleDir>/</bundleDir>
+                <contextRoot>/pnc-rest-new</contextRoot>
             </webModule>
             <webModule>
               <groupId>org.jboss.pnc</groupId>

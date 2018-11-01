@@ -1,0 +1,18 @@
+resourcePackages:
+- org.jboss.pnc.rest.api
+prettyPrint: true
+openAPI:
+  info:
+    version: '1.0'
+    title: Project Newcastle Rest API
+    description: 'Project Newcastle Rest API'
+    contact:
+      email: ncl-dev@redhat.com
+    license:
+      name: Apache 2.0
+      url: http://www.apache.org/licenses/LICENSE-2.0.html
+  tags:
+    - name: Build Configuration
+      description: Build configuration entities
+    - name: Build
+      description: Build entities

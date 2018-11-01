@@ -8,7 +8,7 @@
  * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,6 +33,7 @@ import org.jboss.pnc.rest.endpoints.SCMRepositoryEndpointImpl;
 import org.jboss.pnc.rest.endpoints.UserEndpointImpl;
 import org.jboss.pnc.rest.jackson.JacksonProvider;
 import org.jboss.pnc.rest.provider.AllOtherExceptionsMapper;
+import org.jboss.pnc.rest.impl.DebugEndpointImpl;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
 import javax.ws.rs.ApplicationPath;
@@ -84,20 +85,17 @@ public class JaxRsActivatorNew extends Application {
 
     private void addEndpoints(Set<Class<?>> resources) {
         resources.add(ArtifactEndpointImpl.class);
-
-        resources.add(BuildEndpointImpl.class);
-
         resources.add(BuildConfigurationEndpointImpl.class);
+        resources.add(BuildEndpointImpl.class);
+        resources.add(DebugEndpointImpl.class);
+        resources.add(EnvironmentEndpointImpl.class);
         resources.add(GroupBuildEndpointImpl.class);
         resources.add(GroupConfigurationEndpointImpl.class);
-        resources.add(ProjectEndpointImpl.class);
-
         resources.add(ProductEndpointImpl.class);
         resources.add(ProductMilestoneEndpointImpl.class);
         resources.add(ProductReleaseEndpointImpl.class);
         resources.add(ProductVersionEndpointImpl.class);
-
-        resources.add(EnvironmentEndpointImpl.class);
+        resources.add(ProjectEndpointImpl.class);
         resources.add(SCMRepositoryEndpointImpl.class);
         resources.add(UserEndpointImpl.class);
     }
