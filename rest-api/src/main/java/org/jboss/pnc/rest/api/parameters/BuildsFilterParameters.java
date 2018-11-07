@@ -15,44 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.pnc.dto.response;
+package org.jboss.pnc.rest.api.parameters;
 
-import java.util.Collection;
-import java.util.Collections;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.QueryParam;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import io.swagger.v3.oas.annotations.Parameter;
 
 /**
- * Collection REST response.
  *
  * @author Honza Brázdil &lt;jbrazdil@redhat.com&gt;
  */
-@Data
-@AllArgsConstructor
-public class Page<T> {
+public class BuildsFilterParameters {
 
-    /**
-     * Page index.
-     */
-    private int pageIndex;
+    @Parameter(description = "Should return only latest build?")
+    @QueryParam("latest")
+    @DefaultValue("false")
+    boolean latest;
 
-    /**
-     * Number of records per page.
-     */
-    private int pageSize;
-
-    /**
-     * Total pages provided by this query or -1 if unknown.
-     */
-    private int totalPages;
-
-    /**
-     * Embedded collection of data.
-     */
-    private Collection<T> content;
-
-    public Page() {
-        content = Collections.emptyList();
-    }
+    @Parameter(description = "Should return only running builds?")
+    @QueryParam("running")
+    @DefaultValue("false")
+    boolean running;
 }

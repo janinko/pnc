@@ -15,44 +15,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.pnc.dto.response;
+package org.jboss.pnc.dto.requests;
 
-import java.util.Collection;
-import java.util.Collections;
+import org.hibernate.validator.constraints.NotBlank;
+import org.jboss.pnc.dto.BuildConfiguration;
 
-import lombok.AllArgsConstructor;
+import javax.validation.Valid;
+
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Collection REST response.
  *
  * @author Honza Brázdil &lt;jbrazdil@redhat.com&gt;
  */
 @Data
-@AllArgsConstructor
-public class Page<T> {
+@Builder(builderClassName = "Builder")
+public class BuildConfigWithSCMRequest {
 
-    /**
-     * Page index.
-     */
-    private int pageIndex;
+    @NotBlank
+    private final String scmUrl;
 
-    /**
-     * Number of records per page.
-     */
-    private int pageSize;
+    private final Boolean preBuildSyncEnabled;
 
-    /**
-     * Total pages provided by this query or -1 if unknown.
-     */
-    private int totalPages;
+    @Valid
+    private final BuildConfiguration buildConfiguration;
 
-    /**
-     * Embedded collection of data.
-     */
-    private Collection<T> content;
-
-    public Page() {
-        content = Collections.emptyList();
+    @JsonPOJOBuilder(withPrefix = "")
+    public static final class Builder {
     }
 }
