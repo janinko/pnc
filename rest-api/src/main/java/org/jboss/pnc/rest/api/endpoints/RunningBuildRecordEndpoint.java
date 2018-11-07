@@ -120,15 +120,5 @@ public interface RunningBuildRecordEndpoint{
     public Response getAllForBCSetRecord(@BeanParam PageParameters pageParameters,
             @Parameter(description = "Build Configuration Set id", required = true) @PathParam("id") Integer bcSetRecordId);
 
-    @Operation(summary = "Cancel all builds running in the build group",
-            responses = {
-                @ApiResponse(responseCode = SUCCESS_CODE, description = SEARCH_DESCRIPTION),
-                @ApiResponse(responseCode = NOT_FOUND_CODE, description = NOT_FOUND_DESCRIPTION),
-                @ApiResponse(responseCode = SERVER_ERROR_CODE, description = SERVER_ERROR_DESCRIPTION)
-    })
-    @POST
-    @Path("/build-config-set-records/{id}/cancel")
-    public Response cancelAllBuildsInGroup(
-            @Parameter(description = "Build Configuration Set id", required = true) @PathParam("id") Integer bcSetRecordId);
 
 }
