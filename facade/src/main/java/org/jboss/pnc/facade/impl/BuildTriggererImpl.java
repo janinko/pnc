@@ -164,7 +164,7 @@ public class BuildTriggererImpl implements BuildTriggerer {
                 buildSetTask.getBuildTasks()
                         .stream()
                         .map(bt -> Integer.toString(bt.getId()))
-                        .collect(Collectors.joining()));
+                        .collect(Collectors.joining(" ")));
         return buildSetTask;
     }
 
@@ -192,7 +192,7 @@ public class BuildTriggererImpl implements BuildTriggerer {
                 buildSetTask.getBuildTasks()
                         .stream()
                         .map(bt -> Integer.toString(bt.getId()))
-                        .collect(Collectors.joining()));
+                        .collect(Collectors.joining(" ")));
         return buildSetTask;
     }
 
