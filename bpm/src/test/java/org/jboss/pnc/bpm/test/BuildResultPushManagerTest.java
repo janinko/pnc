@@ -23,6 +23,7 @@ import org.jboss.pnc.bpm.causeway.InProgress;
 import org.jboss.pnc.bpm.causeway.Result;
 import org.jboss.pnc.causewayclient.CausewayClient;
 import org.jboss.pnc.common.concurrent.Sequence;
+import org.jboss.pnc.common.gerrit.Gerrit;
 import org.jboss.pnc.dto.BuildPushResult;
 import org.jboss.pnc.enums.BuildPushStatus;
 import org.jboss.pnc.enums.BuildStatus;
@@ -71,6 +72,9 @@ public class BuildResultPushManagerTest {
     @Mock
     private ArtifactRepository artifactRepository;
 
+    @Mock
+    private Gerrit gerrit;
+
     private BuildResultPushManager releaseManager;
 
     private int milestoneIdSequence = 0;
@@ -100,6 +104,7 @@ public class BuildResultPushManagerTest {
                 new InProgress(),
                 buildRecordPushResultRestEvent,
                 artifactRepository,
+                gerrit,
                 causewayClient);
     }
 
