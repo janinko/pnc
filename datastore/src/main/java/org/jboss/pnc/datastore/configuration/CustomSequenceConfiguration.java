@@ -23,14 +23,13 @@ import org.jboss.pnc.model.BuildRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Initialized;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 
-@Singleton
-@Startup
+@ApplicationScoped
 public class CustomSequenceConfiguration {
 
     public static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -38,8 +37,7 @@ public class CustomSequenceConfiguration {
     @Inject
     private DefaultSequenceHandlerRepository sequenceHandlerRepository;
 
-    @PostConstruct
-    public void initialize() {
+    public void initialize(@Observes @Initialized(ApplicationScoped.class) Object pointless) {
 
         String hbm2ddlAutoValue = sequenceHandlerRepository.getEntityManagerFactoryProperty("hibernate.hbm2ddl.auto");
         logger.info("Found hibernate.hbm2ddl.auto {} ...", hbm2ddlAutoValue);

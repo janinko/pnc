@@ -21,9 +21,11 @@ import org.jboss.pnc.datastore.repositories.internal.AbstractRepository;
 import org.jboss.pnc.model.User;
 import org.jboss.pnc.spi.datastore.repositories.UserRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class UserRepositoryImpl extends AbstractRepository<User, Integer> implements UserRepository {
 
     public UserRepositoryImpl() {

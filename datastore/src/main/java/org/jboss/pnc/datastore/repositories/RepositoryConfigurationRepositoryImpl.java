@@ -22,12 +22,14 @@ import org.jboss.pnc.model.RepositoryConfiguration;
 import org.jboss.pnc.spi.datastore.predicates.RepositoryConfigurationPredicates;
 import org.jboss.pnc.spi.datastore.repositories.RepositoryConfigurationRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
 /**
  * @author Jakub Bartecek
  */
-@Stateless
+@Transactional
+@ApplicationScoped
 public class RepositoryConfigurationRepositoryImpl extends AbstractRepository<RepositoryConfiguration, Integer>
         implements RepositoryConfigurationRepository {
 

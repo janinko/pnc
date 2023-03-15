@@ -22,14 +22,16 @@ import org.jboss.pnc.model.TargetRepository;
 import org.jboss.pnc.spi.datastore.predicates.TargetRepositoryPredicates;
 import org.jboss.pnc.spi.datastore.repositories.TargetRepositoryRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
 /**
  * @author <a href="mailto:matejonnet@gmail.com">Matej Lazar</a>
  */
-@Stateless
+@Transactional
+@ApplicationScoped
 public class TargetRepositoryRepositoryImpl extends AbstractRepository<TargetRepository, Integer>
         implements TargetRepositoryRepository {
 

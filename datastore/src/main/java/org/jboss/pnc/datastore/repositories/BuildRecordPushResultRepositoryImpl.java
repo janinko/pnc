@@ -23,14 +23,16 @@ import org.jboss.pnc.model.BuildRecordPushResult;
 import org.jboss.pnc.spi.datastore.predicates.BuildRecordPushResultPredicates;
 import org.jboss.pnc.spi.datastore.repositories.BuildRecordPushResultRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author <a href="mailto:matejonnet@gmail.com">Matej Lazar</a>
  */
-@Stateless
+@Transactional
+@ApplicationScoped
 public class BuildRecordPushResultRepositoryImpl extends AbstractRepository<BuildRecordPushResult, Long>
         implements BuildRecordPushResultRepository {
 

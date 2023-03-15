@@ -33,18 +33,20 @@ import org.jboss.pnc.spi.datastore.repositories.BuildRecordRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class BuildConfigurationAuditedRepositoryImpl implements BuildConfigurationAuditedRepository {
 
     Logger logger = LoggerFactory.getLogger(BuildConfigurationAuditedRepositoryImpl.class);
@@ -52,10 +54,6 @@ public class BuildConfigurationAuditedRepositoryImpl implements BuildConfigurati
     EntityManager entityManager;
 
     BuildRecordRepository buildRecordRepository;
-
-    @Deprecated // CDI workaround
-    public BuildConfigurationAuditedRepositoryImpl() {
-    }
 
     @Inject
     public BuildConfigurationAuditedRepositoryImpl(

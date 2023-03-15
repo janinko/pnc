@@ -39,12 +39,8 @@ import java.util.Map;
 @Dependent
 public class DefaultSequenceHandlerRepository implements SequenceHandlerRepository {
 
-    public DefaultSequenceHandlerRepository() {
-
-    }
-
-    private EntityManager entityManager;
-    private Map<String, Object> entityManagerFactoryProperties;
+    private final EntityManager entityManager;
+    private final Map<String, Object> entityManagerFactoryProperties;
 
     @Inject
     public DefaultSequenceHandlerRepository(EntityManager entityManager) {

@@ -28,10 +28,13 @@ import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 @Slf4j
 public class ArtifactRepositoryImpl extends AbstractRepository<Artifact, Integer> implements ArtifactRepository {
 

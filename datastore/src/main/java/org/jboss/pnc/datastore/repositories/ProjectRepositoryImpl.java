@@ -21,9 +21,11 @@ import org.jboss.pnc.datastore.repositories.internal.AbstractRepository;
 import org.jboss.pnc.model.Project;
 import org.jboss.pnc.spi.datastore.repositories.ProjectRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class ProjectRepositoryImpl extends AbstractRepository<Project, Integer> implements ProjectRepository {
 
     public ProjectRepositoryImpl() {

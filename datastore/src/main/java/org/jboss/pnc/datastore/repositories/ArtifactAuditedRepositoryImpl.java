@@ -17,13 +17,6 @@
  */
 package org.jboss.pnc.datastore.repositories;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.query.AuditEntity;
@@ -35,7 +28,15 @@ import org.jboss.pnc.spi.datastore.repositories.BuildRecordRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Stateless
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Transactional
+@ApplicationScoped
 public class ArtifactAuditedRepositoryImpl implements ArtifactAuditedRepository {
 
     Logger logger = LoggerFactory.getLogger(ArtifactAuditedRepositoryImpl.class);
@@ -43,10 +44,6 @@ public class ArtifactAuditedRepositoryImpl implements ArtifactAuditedRepository 
     EntityManager entityManager;
 
     BuildRecordRepository buildRecordRepository;
-
-    @Deprecated // CDI workaround
-    public ArtifactAuditedRepositoryImpl() {
-    }
 
     @Inject
     public ArtifactAuditedRepositoryImpl(EntityManager entityManager) {

@@ -31,8 +31,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class ProductMilestoneRepositoryImpl extends AbstractRepository<ProductMilestone, Integer>
         implements ProductMilestoneRepository {
 

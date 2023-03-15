@@ -23,27 +23,19 @@ import org.jboss.pnc.model.BuildConfiguration;
 import org.jboss.pnc.model.BuildConfiguration_;
 import org.jboss.pnc.spi.datastore.repositories.BuildConfigurationRepository;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class BuildConfigurationRepositoryImpl extends AbstractRepository<BuildConfiguration, Integer>
         implements BuildConfigurationRepository {
 
-    private AlignmentConfig alignmentConfig;
-
-    /**
-     * @deprecated Created for CDI.
-     */
-    @Deprecated
-    public BuildConfigurationRepositoryImpl() {
-        super(BuildConfiguration.class, Integer.class);
-    }
+    private final AlignmentConfig alignmentConfig;
 
     @Inject
     public BuildConfigurationRepositoryImpl(AlignmentConfig alignmentConfig) {
@@ -52,7 +44,7 @@ public class BuildConfigurationRepositoryImpl extends AbstractRepository<BuildCo
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public BuildConfiguration save(BuildConfiguration buildConfiguration) {
         // Update or save need to set the default alignment parameters
         buildConfiguration.setDefaultAlignmentParams(

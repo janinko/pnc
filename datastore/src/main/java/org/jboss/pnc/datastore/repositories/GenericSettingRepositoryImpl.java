@@ -22,9 +22,11 @@ import org.jboss.pnc.model.GenericSetting;
 import org.jboss.pnc.spi.datastore.predicates.GenericSettingPredicates;
 import org.jboss.pnc.spi.datastore.repositories.GenericSettingRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class GenericSettingRepositoryImpl extends AbstractRepository<GenericSetting, Integer>
         implements GenericSettingRepository {
 

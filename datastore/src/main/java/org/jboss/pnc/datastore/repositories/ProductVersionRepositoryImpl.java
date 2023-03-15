@@ -27,14 +27,16 @@ import org.jboss.pnc.model.ProductVersion;
 import org.jboss.pnc.model.ProductVersion_;
 import org.jboss.pnc.spi.datastore.repositories.ProductVersionRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class ProductVersionRepositoryImpl extends AbstractRepository<ProductVersion, Integer>
         implements ProductVersionRepository {
 

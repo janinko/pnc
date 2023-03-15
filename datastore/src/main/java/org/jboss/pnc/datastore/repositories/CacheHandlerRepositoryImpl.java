@@ -17,13 +17,6 @@
  */
 package org.jboss.pnc.datastore.repositories;
 
-import java.util.Map;
-import java.util.SortedMap;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
@@ -31,13 +24,18 @@ import org.jboss.pnc.model.utils.HibernateMetric;
 import org.jboss.pnc.model.utils.HibernateStatsUtils;
 import org.jboss.pnc.spi.datastore.repositories.CacheHandlerRepository;
 
-@Stateless
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import java.util.Map;
+import java.util.SortedMap;
+
+@Transactional
+@ApplicationScoped
 public class CacheHandlerRepositoryImpl implements CacheHandlerRepository {
 
-    public CacheHandlerRepositoryImpl() {
-    }
-
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Inject
     public CacheHandlerRepositoryImpl(EntityManager entityManager) {

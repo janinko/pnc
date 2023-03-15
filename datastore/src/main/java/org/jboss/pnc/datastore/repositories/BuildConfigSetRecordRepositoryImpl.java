@@ -25,32 +25,21 @@ import org.jboss.pnc.model.BuildConfigSetRecord;
 import org.jboss.pnc.spi.datastore.predicates.BuildConfigSetRecordPredicates;
 import org.jboss.pnc.spi.datastore.repositories.BuildConfigSetRecordRepository;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class BuildConfigSetRecordRepositoryImpl extends AbstractRepository<BuildConfigSetRecord, Base32LongID>
         implements BuildConfigSetRecordRepository {
 
     private static final EnumSet<BuildStatus> IN_PROGRESS_STATES = BuildStatus.unfinished();
-    EntityManager manager;
 
-    /**
-     * @deprecated Created for CDI.
-     */
-    @Deprecated
     public BuildConfigSetRecordRepositoryImpl() {
         super(BuildConfigSetRecord.class, Base32LongID.class);
-    }
-
-    @Inject
-    public BuildConfigSetRecordRepositoryImpl(EntityManager manager) {
-        super(BuildConfigSetRecord.class, Base32LongID.class);
-        this.manager = manager;
     }
 
     @Override

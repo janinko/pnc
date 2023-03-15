@@ -21,9 +21,11 @@ import org.jboss.pnc.datastore.repositories.internal.AbstractRepository;
 import org.jboss.pnc.model.BuildEnvironment;
 import org.jboss.pnc.spi.datastore.repositories.BuildEnvironmentRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class BuildEnvironmentImpl extends AbstractRepository<BuildEnvironment, Integer>
         implements BuildEnvironmentRepository {
 

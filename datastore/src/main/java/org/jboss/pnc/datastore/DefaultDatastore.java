@@ -43,10 +43,9 @@ import org.jboss.pnc.spi.datastore.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,27 +63,25 @@ import static org.jboss.pnc.spi.datastore.predicates.ArtifactPredicates.withIden
 import static org.jboss.pnc.spi.datastore.predicates.BuildConfigurationPredicates.withBuildConfigurationSetId;
 import static org.jboss.pnc.spi.datastore.predicates.UserPredicates.withUserName;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class DefaultDatastore implements Datastore {
 
     public static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private ArtifactRepository artifactRepository;
+    private final ArtifactRepository artifactRepository;
 
-    private BuildRecordRepository buildRecordRepository;
+    private final BuildRecordRepository buildRecordRepository;
 
-    private BuildConfigurationRepository buildConfigurationRepository;
+    private final BuildConfigurationRepository buildConfigurationRepository;
 
-    private BuildConfigurationAuditedRepository buildConfigurationAuditedRepository;
+    private final BuildConfigurationAuditedRepository buildConfigurationAuditedRepository;
 
-    private BuildConfigSetRecordRepository buildConfigSetRecordRepository;
+    private final BuildConfigSetRecordRepository buildConfigSetRecordRepository;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private TargetRepositoryRepository targetRepositoryRepository;
-
-    public DefaultDatastore() {
-    }
+    private final TargetRepositoryRepository targetRepositoryRepository;
 
     @Inject
     public DefaultDatastore(
@@ -135,7 +132,7 @@ public class DefaultDatastore implements Datastore {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public BuildRecord storeCompletedBuild(
             BuildRecord.Builder buildRecordBuilder,
             List<Artifact> builtArtifacts,
@@ -176,7 +173,7 @@ public class DefaultDatastore implements Datastore {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public BuildRecord storeRecordForNoRebuild(BuildRecord buildRecord) {
         logger.debug("Storing record for not required build {}.", buildRecord);
 
@@ -327,7 +324,7 @@ public class DefaultDatastore implements Datastore {
      * build records.
      */
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public BuildConfigSetRecord saveBuildConfigSetRecord(BuildConfigSetRecord buildConfigSetRecord) {
         return buildConfigSetRecordRepository.save(buildConfigSetRecord);
     }
@@ -387,7 +384,7 @@ public class DefaultDatastore implements Datastore {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public boolean requiresRebuild(
             BuildConfigurationAudited buildConfigurationAudited,
             boolean checkImplicitDependencies,
@@ -445,7 +442,7 @@ public class DefaultDatastore implements Datastore {
 
     @Deprecated
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public boolean requiresRebuild(BuildTask task, Set<Integer> processedDependenciesCache) {
         return requiresRebuild(
                 task.getBuildConfigurationAudited(),

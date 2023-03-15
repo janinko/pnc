@@ -22,9 +22,11 @@ import org.jboss.pnc.model.Base32LongID;
 import org.jboss.pnc.model.DeliverableAnalyzerOperation;
 import org.jboss.pnc.spi.datastore.repositories.DeliverableAnalyzerOperationRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class DeliverableAnalyzerOperationRepositoryImpl
         extends AbstractRepository<DeliverableAnalyzerOperation, Base32LongID>
         implements DeliverableAnalyzerOperationRepository {

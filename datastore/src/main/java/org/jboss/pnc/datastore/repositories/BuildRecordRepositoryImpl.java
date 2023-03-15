@@ -33,10 +33,8 @@ import org.jboss.pnc.spi.datastore.repositories.api.PageInfo;
 import org.jboss.pnc.spi.datastore.repositories.api.SortInfo;
 import org.jboss.pnc.spi.datastore.repositories.api.impl.DefaultPageInfo;
 import org.jboss.pnc.spi.datastore.repositories.api.impl.DefaultSortInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -45,6 +43,7 @@ import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import java.math.BigInteger;
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -62,21 +61,12 @@ import static org.jboss.pnc.spi.datastore.predicates.BuildRecordPredicates.withS
 import static org.jboss.pnc.spi.datastore.predicates.BuildRecordPredicates.withoutImplicitDependants;
 import static org.jboss.pnc.spi.datastore.predicates.BuildRecordPredicates.withoutLinkedNRRRecordOlderThanTimestamp;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class BuildRecordRepositoryImpl extends AbstractRepository<BuildRecord, Base32LongID>
         implements BuildRecordRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(BuildRecordRepositoryImpl.class);
-
-    private BuildConfigurationAuditedRepository buildConfigurationAuditedRepository;
-
-    /**
-     * @deprecated Created for CDI.
-     */
-    @Deprecated
-    public BuildRecordRepositoryImpl() {
-        super(BuildRecord.class, Base32LongID.class);
-    }
+    private final BuildConfigurationAuditedRepository buildConfigurationAuditedRepository;
 
     @Inject
     public BuildRecordRepositoryImpl(BuildConfigurationAuditedRepository buildConfigurationAuditedRepository) {

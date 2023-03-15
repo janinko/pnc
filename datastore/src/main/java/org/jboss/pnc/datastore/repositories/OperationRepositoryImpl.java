@@ -22,9 +22,11 @@ import org.jboss.pnc.model.Base32LongID;
 import org.jboss.pnc.model.Operation;
 import org.jboss.pnc.spi.datastore.repositories.OperationRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class OperationRepositoryImpl extends AbstractRepository<Operation, Base32LongID>
         implements OperationRepository {
 

@@ -22,10 +22,12 @@ import org.jboss.pnc.model.BuildConfigurationSet;
 import org.jboss.pnc.spi.datastore.predicates.BuildConfigurationSetPredicates;
 import org.jboss.pnc.spi.datastore.repositories.BuildConfigurationSetRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.List;
 
-@Stateless
+@Transactional
+@ApplicationScoped
 public class BuildConfigurationSetRepositoryImpl extends AbstractRepository<BuildConfigurationSet, Integer>
         implements BuildConfigurationSetRepository {
 

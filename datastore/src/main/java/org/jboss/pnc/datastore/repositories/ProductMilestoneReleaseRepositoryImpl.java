@@ -26,13 +26,15 @@ import org.jboss.pnc.spi.datastore.repositories.ProductMilestoneReleaseRepositor
 import org.jboss.pnc.spi.datastore.repositories.api.impl.DefaultPageInfo;
 import org.jboss.pnc.spi.datastore.repositories.api.impl.DefaultSortInfo;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Author: Michal Szynkiewicz, michal.l.szynkiewicz@gmail.com Date: 8/30/16 Time: 1:50 PM
  */
-@Stateless
+@Transactional
+@ApplicationScoped
 public class ProductMilestoneReleaseRepositoryImpl extends AbstractRepository<ProductMilestoneRelease, Long>
         implements ProductMilestoneReleaseRepository {
 
