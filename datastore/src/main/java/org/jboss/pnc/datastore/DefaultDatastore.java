@@ -210,8 +210,6 @@ public class DefaultDatastore implements Datastore {
             }
         }
 
-        fetchOrSaveRequiredTargetRepositories(artifacts, storedTargetRepositories);
-
         if (artifactConstraints.size() > 0) {
             logger.debug("Searching artifacts by {} constraints.", artifactConstraints.size());
             Set<Artifact> artifactsInDb = artifactRepository.withIdentifierAndSha256(artifactConstraints);
@@ -221,8 +219,12 @@ public class DefaultDatastore implements Datastore {
             }
         }
 
+        fetchOrSaveRequiredTargetRepositories(artifacts, storedTargetRepositories, artifactCache);
+
         for (Artifact artifact : artifacts) {
             // link managed targetRepository
+            // This may potentially set null TR to artifacts that are in artifact cache, but that's fine because the
+            // cached artifact will be used instead of the `artifact` here.
             artifact.setTargetRepository(
                     storedTargetRepositories.get(artifact.getTargetRepository().getIdentifierPath()));
 
@@ -246,14 +248,17 @@ public class DefaultDatastore implements Datastore {
 
     private void fetchOrSaveRequiredTargetRepositories(
             Collection<Artifact> artifacts,
-            Map<TargetRepository.IdentifierPath, TargetRepository> storedTargetRepositories) {
+            Map<TargetRepository.IdentifierPath, TargetRepository> storedTargetRepositories,
+            Map<Artifact.IdentifierSha256, Artifact> artifactCache) {
 
         Map<TargetRepository.IdentifierPath, TargetRepository> requiredTargetRepositories = new HashMap<>();
         for (Artifact artifact : artifacts) {
-            TargetRepository targetRepository = artifact.getTargetRepository();
-            logger.trace("Adding repository for artifact: {}.", artifact.toString());
-            if (!storedTargetRepositories.containsKey(targetRepository.getIdentifierPath())) {
-                requiredTargetRepositories.put(targetRepository.getIdentifierPath(), targetRepository);
+            if (!artifactCache.containsKey(artifact.getIdentifierSha256())) {
+                TargetRepository targetRepository = artifact.getTargetRepository();
+                logger.trace("Adding repository for artifact: {}.", artifact.toString());
+                if (!storedTargetRepositories.containsKey(targetRepository.getIdentifierPath())) {
+                    requiredTargetRepositories.put(targetRepository.getIdentifierPath(), targetRepository);
+                }
             }
         }
 
